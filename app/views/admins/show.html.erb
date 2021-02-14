@@ -6,10 +6,15 @@
 <% @application.pets.each do |pet| %>
   <div id="admin-pet-<%= pet.id %>">
 
-  <% if !pet.status? %>
+
+  <% if pet.status == nil %>
+    <p><%= pet.name %></p>
+    <p>Application Rejected</p>
+  <% elsif !pet.status? %>
     <p><%= pet.name %></p>
     <%= button_to "Approve Application", "/admins/applications/#{@application.id}?approve=#{pet.id}", method: :post %>
-  <% else %>
+    <%= button_to "Reject Application", "/admins/applications/#{@application.id}?reject=#{pet.id}", method: :post %>
+  <% elsif pet.status? %>
     <p><%= pet.name %></p>
     <p>Application Approved</p>
   <% end %>
