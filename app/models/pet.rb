@@ -13,4 +13,8 @@ class Pet < ApplicationRecord
   def self.search(input)
     where("name ILIKE ?", "%#{input[:search]}%")
   end
+
+  def approved_app
+    return true if applications.where(status: "Approved").count >= 1
+  end
 end

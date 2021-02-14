@@ -13,10 +13,15 @@
     <p><%= pet.name %></p>
     <p>Application Approved</p>
   <% else %>
-    <p><%= pet.name %></p>
-    <section id="approve-<%= pet.id %>">
-    <p> <%= button_to "Approve Application", "/admins/applications/#{@application.id}?approve=#{pet.id}", method: :post %></p>
-    </section>
-    <p><%= button_to "Reject Application", "/admins/applications/#{@application.id}?reject=#{pet.id}", method: :post %></p>
+      <% if pet.approved_app %>
+        <section id="approve-<%= pet.id %>">
+        <p><%= button_to "Reject Application", "/admins/applications/#{@application.id}?reject=#{pet.id}", method: :post %></p>
+      <% else %>
+        <p><%= pet.name %></p>
+        <section id="approve-<%= pet.id %>">
+          <p> <%= button_to "Approve Application", "/admins/applications/#{@application.id}?approve=#{pet.id}", method: :post %></p>
+        </section>
+        <p><%= button_to "Reject Application", "/admins/applications/#{@application.id}?reject=#{pet.id}", method: :post %></p>
+    <% end %>
   <% end %>
 <% end %>

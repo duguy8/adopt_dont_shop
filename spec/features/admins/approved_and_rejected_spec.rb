@@ -6,7 +6,8 @@ RSpec.describe 'When there are two apps for one pet' do
     @app2 = create(:application)
     @shelter = create(:shelter, id: 1)
     @eros = create(:pet, shelter_id: 1)
-    @app1.pets << [@eros]
+    @apollo = create(:pet, shelter_id: 1)
+    @app1.pets << [@eros, @apollo]
     @app2.pets << [@eros]
   end
 
@@ -14,7 +15,10 @@ RSpec.describe 'When there are two apps for one pet' do
     describe "And visit other apps admin show page" do
       it "Shows the pet and can be approved/rejected" do
         visit "/admins/applications/#{@app1.id}"
-        click_button("Approve Application")
+        within("#approve-#{@eros.id}") do
+          expect(page).to have_button("Approve Application")
+          click_button("Approve Application")
+        end
         visit "/admins/applications/#{@app2.id}"
         within("#admin-pet-#{@eros.id}") do
           expect(page).to have_button("Approve Application")
