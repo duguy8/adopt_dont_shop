@@ -1,0 +1,14 @@
+<%= form_with(url: "/applications", method: "post", local: true) do |f| %>
+  <h3><%= f.label "Applicant Information:" %></h3>
+  <p><%= f.label "Name: " %></p>
+  <p><%= f.text_field :name, placeholder: "Enter Name" %></p><br>
+  <p><%= f.label "Street Address: " %></p>
+  <p><%= f.text_field :street_address, placeholder: "Enter Street Address" %></p><br>
+  <p><%= f.label "City: " %></p>
+  <p><%= f.text_field :city, placeholder: "Enter City" %></p><br>
+  <p><%= f.label "State: " %></p>
+  <p><%= f.text_field :state, placeholder: "Enter State" %></p><br>
+  <p><%= f.label "Zipcode: " %></p>
+  <p><%= f.text_field :zipcode, placeholder: "Enter Zipcode" %></p><br>
+  <%= f.submit "Submit" %>
+<% end %>

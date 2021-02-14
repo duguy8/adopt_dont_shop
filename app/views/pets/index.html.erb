@@ -1,5 +1,7 @@
 <h1>All Pets</h1>
 
+<h3><%= link_to "Start an Application", "/applications/new" %></h3>
+
 <% @pets.each do |pet| %>
   <% if pet.adoptable == true %>
   <section id="pet-<%=pet.id%>">

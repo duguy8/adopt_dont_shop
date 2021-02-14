@@ -1,0 +1,42 @@
+<h1>Applicant: <%= @application.name %></h1>
+
+<h3>Address: <%= @application.street_address %></h3>
+<h3>City: <%= @application.city %></h3>
+<h3>State: <%= @application.state %></h3>
+<h3>Zipcode: <%= @application.zipcode %></h3>
+<h3>Application Status: <%= @application.status %></h3>
+<h3>Why I'd be a great pet owner: <%= @application.description %></h3>
+
+<section id="search_pets">
+  <%= form_with(url: "/applications/#{@application.id}", method: "get", local: true) do |f| %>
+    <h5><%= f.label "Add a Pet to this Application: " %></h5>
+    <p><%= f.text_field :search, placeholder: "Enter Pets Name" %></p><br>
+    <p><%= f.submit "Search Pets" %></p>
+    <% end %>
+
+    <% if !@pets.nil? %>
+      <%@pets.each do |pet| %>
+        <p><%= pet.name %></p>
+        <%end %>
+      <%else %>
+    <% end %>
+</section>
+
+<section id="description_submit">
+  <%= form_with(url: "/applications/#{@application.id}", method: "patch", local: true) do |f| %>
+    <h3><%= f.label "Submit Your Application: " %></h3>
+    <p><%= f.label "Why You'd Make a Great Owner: " %></p>
+    <p><%= f.text_field :description, placeholder: "Type Here" %></p><br>
+    <p><%= f.submit "Submit Application" %></p>
+    <% end %>
+</section>
+
+<section id="pet_section">
+  <h3>Pets I'm applying for: </h3>
+  <% @application.pets.each do |pet| %>
+    <div class="pet" id="pet-<%= pet.id %>">
+      <ul>
+        <li><%= link_to "#{pet.name}", "/pets/#{pet.id}" %></li>
+      </ul>
+  <% end %>
+</section>
