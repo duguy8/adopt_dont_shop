@@ -38,5 +38,5 @@ Rails.application.routes.draw do
 
   #admins
   get "/admins/applications/:id", to: "admins#show"
-  patch "/admins/applications/:id", to: "admins#approve"
+  post "/admins/applications/:id", to: "admins#approve"
 end

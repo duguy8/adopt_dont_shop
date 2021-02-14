@@ -5,6 +5,12 @@
 <h3>Pets on Application</h3>
 <% @application.pets.each do |pet| %>
   <div id="admin-pet-<%= pet.id %>">
-  <%= button_to "Approve Application", "/admin/applications/#{@application.id}?approve=do", method: :post %>
-  <p><%= pet.name %></p>
+
+  <% if !pet.status? %>
+    <p><%= pet.name %></p>
+    <%= button_to "Approve Application", "/admins/applications/#{@application.id}?approve=#{pet.id}", method: :post %>
+  <% else %>
+    <p><%= pet.name %></p>
+    <p>Application Approved</p>
+  <% end %>
 <% end %>
