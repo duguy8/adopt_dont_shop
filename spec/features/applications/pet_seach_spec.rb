@@ -10,6 +10,8 @@ RSpec.describe 'As a vistor' do
     @doge2 = create(:pet, name: "fluff", shelter_id: 1)
     @doge3 = create(:pet, name: "fluffy", shelter_id: 1)
     @doge4 = create(:pet, name: "mr.fluff", shelter_id: 1)
+    @doge5 = create(:pet, name: "mr.cute", shelter_id: 1)
+    @doge6 = create(:pet, name: "she CUTE", shelter_id: 1)
   end
 
   describe "On the applications show page" do
@@ -30,10 +32,18 @@ RSpec.describe 'As a vistor' do
         visit "/applications/#{@app1.id}"
         fill_in "search", :with => "fluff"
         click_button("Search Pets")
-        # save_and_open_page
         expect(page).to have_content(@doge2.name)
         expect(page).to have_content(@doge3.name)
         expect(page).to have_content(@doge4.name)
+      end
+
+      it 'Can return case insensitive matches' do
+        visit "/applications/#{@app1.id}"
+        fill_in "search", :with => "cute"
+        click_button("Search Pets")
+        expect(page).to have_content(@doge.name)
+        expect(page).to have_content(@doge5.name)
+        expect(page).to have_content(@doge6.name)
       end
     end
   end
