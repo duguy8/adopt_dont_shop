@@ -14,7 +14,7 @@
     <p>Application Approved</p>
   <% else %>
     <p><%= pet.name %></p>
-    <%= button_to "Approve Application", "/admins/applications/#{@application.id}?approve=#{pet.id}", method: :post %>
-    <%= button_to "Reject Application", "/admins/applications/#{@application.id}?reject=#{pet.id}", method: :post %>
+    <p><%= button_to "Approve Application", "/admins/applications/#{@application.id}?approve=#{pet.id}", method: :post %></p>
+    <p><%= button_to "Reject Application", "/admins/applications/#{@application.id}?reject=#{pet.id}", method: :post %></p>
   <% end %>
 <% end %>

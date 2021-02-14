@@ -8,7 +8,7 @@ class Application < ApplicationRecord
     if approved.length == pets.length
       update(status: "Approved")
       self
-    else
+    # elsif
     end
   end
 end
