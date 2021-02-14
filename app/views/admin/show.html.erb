@@ -1,0 +1,10 @@
+<h1>Admin Application Approval Page</h1>
+
+<h4>Applicant Name: <%= @application.name %></h4>
+
+<h3>Pets on Application</h3>
+<% @application.pets.each do |pet| %>
+  <div id="admin-pet-<%= pet.id %>">
+  <%= button_to "Approve Application", "/admin/applications/#{@application.id}?approve=do", method: :get %>
+  <p><%= pet.name %></p>
+<% end %>
