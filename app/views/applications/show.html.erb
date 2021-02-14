@@ -7,6 +7,16 @@
 <h3>Application Status: <%= @application.status %></h3>
 <h3>Why I'd be a great pet owner: <%= @application.description %></h3>
 
+<section id="pet_section">
+  <h3>Pets I'm applying for: </h3>
+  <% @application.pets.each do |pet| %>
+  <div class="pet" id="pet-<%= pet.id %>">
+    <ul>
+      <li><%= link_to "#{pet.name}", "/pets/#{pet.id}" %></li>
+    </ul>
+    <% end %>
+  </section>
+
 <section id="search_pets">
   <%= form_with(url: "/applications/#{@application.id}", method: "get", local: true) do |f| %>
     <h5><%= f.label "Add a Pet to this Application: " %></h5>
@@ -14,29 +24,24 @@
     <p><%= f.submit "Search Pets" %></p>
     <% end %>
 
-    <% if !@pets.nil? %>
+    <% if @pets %>
       <%@pets.each do |pet| %>
-        <p><%= pet.name %></p>
+        <div id="pet-<%= pet.id %>">
+        <h4><%= pet.name %></h4>
+        <%= button_to "Adopt this Pet", "/applications/#{@application.id}/adopt?pet_id=#{pet.id}", method: :patch %>
         <%end %>
       <%else %>
     <% end %>
 </section>
 
 <section id="description_submit">
-  <%= form_with(url: "/applications/#{@application.id}", method: "patch", local: true) do |f| %>
-    <h3><%= f.label "Submit Your Application: " %></h3>
-    <p><%= f.label "Why You'd Make a Great Owner: " %></p>
-    <p><%= f.text_field :description, placeholder: "Type Here" %></p><br>
-    <p><%= f.submit "Submit Application" %></p>
-    <% end %>
-</section>
-
-<section id="pet_section">
-  <h3>Pets I'm applying for: </h3>
-  <% @application.pets.each do |pet| %>
-    <div class="pet" id="pet-<%= pet.id %>">
-      <ul>
-        <li><%= link_to "#{pet.name}", "/pets/#{pet.id}" %></li>
-      </ul>
+  <% if !@application.pets.empty? %>
+    <%= form_with(url: "/applications/#{@application.id}", method: "patch", local: true) do |f| %>
+      <h3><%= f.label "Submit Your Application: " %></h3>
+      <p><%= f.label "Why You'd Make a Great Owner: " %></p>
+      <p><%= f.text_field :description, placeholder: "Type Here" %></p><br>
+      <p><%= f.submit "Submit Application" %></p>
+      <% end %>
+    <% else %>
   <% end %>
 </section>

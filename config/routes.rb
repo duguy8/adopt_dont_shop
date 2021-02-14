@@ -34,4 +34,9 @@ Rails.application.routes.draw do
   get "/applications/:id", to: "applications#show"
   post "/applications", to: "applications#create"
   patch "/applications/:id", to: "applications#update"
+  patch "/applications/:id/adopt", to: "applications#adopt"
+
+  #admins
+  get "/admins/applications/:id", to: "admins#show"
+  post "/admins/applications/:id", to: "admins#approve"
 end

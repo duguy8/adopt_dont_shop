@@ -1,0 +1,27 @@
+<h1>Admin Application Approval Page</h1>
+<section class="stats">
+<h4>Applicant Name: <%= @application.name %></h4>
+<h4>Application Status: <%= @application.status %></h4>
+</section>
+<h3>Pets on Application</h3>
+<% @application.pets.each do |pet| %>
+  <div id="admin-pet-<%= pet.id %>">
+  <% if params[:approve] == "no" %>
+    <p><%= pet.name %></p>
+    <p>Application Rejected</p>
+  <% elsif params[:approve] == "yes" && pet.status %>
+    <p><%= pet.name %></p>
+    <p>Application Approved</p>
+  <% else %>
+      <% if pet.approved_app %>
+        <section id="approve-<%= pet.id %>">
+        <p><%= button_to "Reject Application", "/admins/applications/#{@application.id}?reject=#{pet.id}", method: :post %></p>
+      <% else %>
+        <p><%= pet.name %></p>
+        <section id="approve-<%= pet.id %>">
+          <p> <%= button_to "Approve Application", "/admins/applications/#{@application.id}?approve=#{pet.id}", method: :post %></p>
+        </section>
+        <p><%= button_to "Reject Application", "/admins/applications/#{@application.id}?reject=#{pet.id}", method: :post %></p>
+    <% end %>
+  <% end %>
+<% end %>

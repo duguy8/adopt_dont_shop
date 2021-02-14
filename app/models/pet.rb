@@ -11,6 +11,10 @@ class Pet < ApplicationRecord
   enum sex: [:female, :male]
 
   def self.search(input)
-    where(name: input[:search])
+    where("name ILIKE ?", "%#{input[:search]}%")
+  end
+
+  def approved_app
+    return true if applications.where(status: "Approved").count >= 1
   end
 end
