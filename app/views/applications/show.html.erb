@@ -24,7 +24,7 @@
     <p><%= f.submit "Search Pets" %></p>
     <% end %>
 
-    <% if !@pets.nil? %>
+    <% if @pets %>
       <%@pets.each do |pet| %>
         <div id="pet-<%= pet.id %>">
         <p><%= pet.name %></p>
@@ -35,10 +35,13 @@
 </section>
 
 <section id="description_submit">
-  <%= form_with(url: "/applications/#{@application.id}", method: "patch", local: true) do |f| %>
-    <h3><%= f.label "Submit Your Application: " %></h3>
-    <p><%= f.label "Why You'd Make a Great Owner: " %></p>
-    <p><%= f.text_field :description, placeholder: "Type Here" %></p><br>
-    <p><%= f.submit "Submit Application" %></p>
-    <% end %>
+  <% if !@application.pets.empty? %>
+    <%= form_with(url: "/applications/#{@application.id}", method: "patch", local: true) do |f| %>
+      <h3><%= f.label "Submit Your Application: " %></h3>
+      <p><%= f.label "Why You'd Make a Great Owner: " %></p>
+      <p><%= f.text_field :description, placeholder: "Type Here" %></p><br>
+      <p><%= f.submit "Submit Application" %></p>
+      <% end %>
+    <% else %>
+  <% end %>
 </section>
