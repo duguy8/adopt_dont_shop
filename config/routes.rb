@@ -36,6 +36,7 @@ Rails.application.routes.draw do
   patch "/applications/:id", to: "applications#update"
   patch "/applications/:id/adopt", to: "applications#adopt"
 
-  #admin
-  get "/admin/applications/:id", to: "admin#show"
+  #admins
+  get "/admins/applications/:id", to: "admins#show"
+  patch "/admins/applications/:id", to: "admins#approve"
 end
