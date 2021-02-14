@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'As a vistor' do
+RSpec.describe 'As a vistor when I visit an app show page' do
   before :each do
     @app1 = create(:application)
     @shelter = create(:shelter, id: 1)
@@ -8,21 +8,22 @@ RSpec.describe 'As a vistor' do
     @eros = create(:pet, shelter_id: 1)
     @doge = create(:pet, name: "Cute Dog", shelter_id: 1)
     @doge2 = create(:pet, name: "What a dog", shelter_id: 1)
-    @app1.pets << @eros
   end
 
-  describe "On the applications show page" do
-    describe "It has a section to add pet to application" do
-      it "has input where you can search for pets by name" do
-
+  describe "After I search for a pet" do
+    describe "Has a link to ~Adopt this Pet~ button next to each pet" do
+      it "Takes me back to app show page where it shows the pet" do
         visit "/applications/#{@app1.id}"
-        within("#search_pets") do
-          expect(page).to have_button("Search Pets")
-        end
         fill_in "search", :with => "Cute Dog"
         click_button("Search Pets")
+        within("#pet-#{@doge.id}") do
+          expect(page).to have_button("Adopt this Pet")
+        end
+        click_button("Adopt this Pet")
         expect(current_path).to eq("/applications/#{@app1.id}")
-        expect(page).to have_content(@doge.name)
+        within("#pet_section") do
+          expect(page).to have_content(@doge.name)
+        end
       end
     end
   end
