@@ -3,10 +3,10 @@ require 'rails_helper'
 RSpec.describe 'When I visit an admin shelter show page' do
   before :each do
     @shelter1 = create(:shelter, name: "Tampa Shelter", id: 1)
-    @eros = create(:pet, age: 1, adoptable: true, shelter_id: 1)
-    @apollo = create(:pet, age: 3, adoptable: true, shelter_id: 1)
-    @new_pup = create(:pet, age: 4, adoptable: true, shelter_id: 1)
-    @doge = create(:pet, age: 2, adoptable: true, shelter_id: 1)
+    @eros = create(:pet, approximate_age: 1, adoptable: true, shelter_id: 1)
+    @apollo = create(:pet, approximate_age: 3, adoptable: true, shelter_id: 1)
+    @new_pup = create(:pet, approximate_age: 4, adoptable: true, shelter_id: 1)
+    @doge = create(:pet, approximate_age: 2, adoptable: true, shelter_id: 1)
   end
 
   describe "I see a section for statistics" do
