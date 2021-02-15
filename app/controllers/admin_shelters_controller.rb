@@ -1,8 +1,7 @@
 class AdminSheltersController < ApplicationController
   def index
     @shelters = Shelter.reverse_by_name
-    @pending = Shelter.pending
-    require "pry"; binding.pry
+    @pending = Shelter.pending_apps
   end
 
   def show

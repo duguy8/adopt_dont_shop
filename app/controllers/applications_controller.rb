@@ -18,6 +18,7 @@ class ApplicationsController < ApplicationController
       flash[:notice] = "Required fields missing"
       render :new
     else
+      flash[:success] = "Application created successfully"
       @application.save
       redirect_to "/applications/#{@application.id}"
     end
