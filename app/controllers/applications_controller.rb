@@ -14,7 +14,6 @@ class ApplicationsController < ApplicationController
   def create
     @application = Application.create(app_params)
     @application.update(status: "In Progress")
-
     if app_params.values.any?(&:empty?)
       flash[:notice] = "Required fields missing"
       render :new

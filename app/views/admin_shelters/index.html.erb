@@ -8,3 +8,10 @@
   <h5><%= shelter.state %></h5>
   <h5><%= shelter.zip %></h5>
 <% end %>
+
+<section id="pending">
+  <h2>Shelter's with Pending Applications: </h2>
+  <% @pending.each do |shelter| %>
+    <p><%= shelter.name %></p>
+  <% end %>
+  </section>
