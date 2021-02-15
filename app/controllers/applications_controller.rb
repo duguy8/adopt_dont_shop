@@ -14,11 +14,11 @@ class ApplicationsController < ApplicationController
   def create
     @application = Application.create(app_params)
     @application.update(status: "In Progress")
-
     if app_params.values.any?(&:empty?)
       flash[:notice] = "Required fields missing"
       render :new
     else
+      flash[:success] = "Application created successfully"
       @application.save
       redirect_to "/applications/#{@application.id}"
     end
@@ -30,6 +30,7 @@ class ApplicationsController < ApplicationController
       description: params[:description],
       status: "Pending"
       })
+    flash[:notice] = "Your application is pending"
     redirect_to "/applications/#{@application.id}"
   end
 
@@ -37,6 +38,7 @@ class ApplicationsController < ApplicationController
     @application = Application.find(params[:id])
     pet = Pet.find(params[:pet_id])
     @application.pets << pet
+    flash[:notice] = "#{pet.name} has been added to your application"
     redirect_to "/applications/#{@application.id}"
   end
 

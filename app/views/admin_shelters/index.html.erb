@@ -1,0 +1,19 @@
+<h1>Admin Page</h1>
+<h2>All Shelters</h2>
+
+<% @shelters.each do |shelter| %>
+  <h5><%= link_to "#{shelter.name}", "/admin/shelters/#{shelter.id}" %>
+  <h5><%= shelter.address %></h5>
+  <h5><%= shelter.city %></h5>
+  <h5><%= shelter.state %></h5>
+  <h5><%= shelter.zip %></h5>
+<% end %>
+
+<section id="pending">
+  <h2>Shelter's with Pending Applications: </h2>
+  <% if @pending %>
+    <% @pending.each do |shelter| %>
+      <p><%= shelter.name %></p>
+      <% end %>
+    <% end %>
+  </section>

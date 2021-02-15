@@ -39,4 +39,8 @@ Rails.application.routes.draw do
   #admins
   get "/admins/applications/:id", to: "admins#show"
   post "/admins/applications/:id", to: "admins#approve"
+
+  #admin_shelters
+  get "/admin/shelters", to: "admin_shelters#index"
+  get "/admin/shelters/:id", to: "admin_shelters#show"
 end
