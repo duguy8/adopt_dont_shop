@@ -42,4 +42,5 @@ Rails.application.routes.draw do
 
   #admin_shelters
   get "/admin/shelters", to: "admin_shelters#index"
+  get "/admin/shelters/:id", to: "admin_shelters#show"
 end
