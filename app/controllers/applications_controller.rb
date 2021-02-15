@@ -30,6 +30,7 @@ class ApplicationsController < ApplicationController
       description: params[:description],
       status: "Pending"
       })
+    flash[:notice] = "Your application is pending"
     redirect_to "/applications/#{@application.id}"
   end
 
@@ -37,6 +38,7 @@ class ApplicationsController < ApplicationController
     @application = Application.find(params[:id])
     pet = Pet.find(params[:pet_id])
     @application.pets << pet
+    flash[:notice] = "#{pet.name} has been added to your application"
     redirect_to "/applications/#{@application.id}"
   end
 
