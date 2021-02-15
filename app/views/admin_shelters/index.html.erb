@@ -1,0 +1,10 @@
+<h1>Admin Page</h1>
+<h2>All Shelters</h2>
+
+<% @shelters.each do |shelter| %>
+  <h5><%= shelter.name %></h5>
+  <h5><%= shelter.address %></h5>
+  <h5><%= shelter.city %></h5>
+  <h5><%= shelter.state %></h5>
+  <h5><%= shelter.zip %></h5>
+<% end %>
