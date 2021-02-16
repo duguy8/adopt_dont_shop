@@ -6,10 +6,7 @@ class Shelter < ApplicationRecord
   end
 
   def self.pending_apps
-    find_each do |shelter|
-      Pet.pending?(shelter)
-    end
-    order(:name)
+    joins(:pets).where('pets.status = ?', "true").order(:name)
   end
 
   def average_age

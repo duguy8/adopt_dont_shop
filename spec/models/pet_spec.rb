@@ -51,4 +51,18 @@ describe Pet, type: :model do
       expect(expected.first.name).to eq("Fluffy")
     end
   end
+
+  describe 'instance methods' do
+    it 'can find pets with approved apps' do
+      app1 = create(:application, status: "Pending")
+      app2 = create(:application, status: "Approved")
+      shelter = create(:shelter)
+      pet = shelter.pets.create!(sex: :female, name: "Fluffy", approximate_age: 3, description: 'super cute')
+      pet2 = shelter.pets.create!(sex: :female, name: "Doge", approximate_age: 3, description: 'super cute')
+      app1.pets << [pet]
+      app2.pets << [pet2]
+      expect(pet2.approved_app).to be true
+      expect(pet.approved_app).not_to be true
+    end
+  end
 end
