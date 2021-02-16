@@ -3,7 +3,7 @@ class AdminsController < ApplicationController
     @application = Application.find(params[:id])
   end
 
-  def approve
+  def update
     if params[:approve]
       @application = Application.find(params[:id])
       @pet = @application.pets.find(params[:approve])

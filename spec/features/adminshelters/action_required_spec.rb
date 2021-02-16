@@ -16,9 +16,14 @@ RSpec.describe 'When I visit an admin shelter show page' do
   end
 
   describe "I see a section titled ~Action Required~" do
-    describe "I see a list of all pets that have a pending application and" do
-      it "Has not been marked ~approved or rejected~" do
-      end
-    end
+  #   describe "I see a list of all pets that have a pending application and" do
+  #     it "Has not been marked ~approved or rejected~" do
+  #       visit "/admin/shelters/#{@shelter1.id}"
+  #       within("#action-required") do
+  #         expect(page).to have_content(@new_pup.name)
+  #         expect(page).to have_content(@eros.name)
+  #       end
+  #     end
+  #   end
   end
 end
