@@ -8,7 +8,8 @@
 
 <section id="statistics">
   <% if !@shelter.pets.empty? %>
-    <h3>Average Pet Age: <%= @shelter.average_age.round(2) %></h3>
-    <h3>Number of adoptable pets: <%= @shelter.adoptable_pets.count %></h3>
+    <h3>Average Pet Age: <%= @shelter.average_age.round(2) %></h3><br>
+    <h3>Number of adoptable pets: <%= @shelter.adoptable_pets.count %></h3><br>
+    <h3>Number of pets that have been adopted: <%= @shelter.adopted.count %></h3>
   <% end %>
   </section>

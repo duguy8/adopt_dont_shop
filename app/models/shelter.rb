@@ -16,4 +16,8 @@ class Shelter < ApplicationRecord
   def adoptable_pets
     pets.where(adoptable: true)
   end
+
+  def adopted
+    pets.where("adoptable = ? AND status = ?", false, true)
+  end
 end
