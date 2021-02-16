@@ -52,5 +52,15 @@ describe Shelter, type: :model do
       expect(shelter1.adopted).to eq(expected)
       expect(shelter1.adopted.count).to eq 1
     end
+
+    it "can find all pets that have a pending application" do
+      shelter1 = create(:shelter, name: "Max Fund", id: 1)
+      eros = create(:pet, shelter_id: 1, adoptable: true, status: true)
+      apollo = create(:pet, shelter_id: 1, adoptable: false)
+      doge = create(:pet, shelter_id: 1, adoptable: false, status: true)
+      expected = [eros]
+      expect(shelter1.pending_pets).to eq(expected)
+      expect(shelter1.pending_pets.count).to eq 1
+    end
   end
 end
