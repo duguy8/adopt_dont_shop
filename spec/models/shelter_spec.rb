@@ -34,12 +34,23 @@ describe Shelter, type: :model do
       zues = create(:pet, shelter_id: 1, approximate_age: 8)
       expect(shelter1.average_age).to eq(4)
     end
+
     it 'can find adoptable pets' do
       shelter1 = create(:shelter, name: "Max Fund", id: 1)
       eros = create(:pet, shelter_id: 1, adoptable: true)
       apollo = create(:pet, shelter_id: 1, adoptable: false)
       expected = [eros]
       expect(shelter1.adoptable_pets).to eq(expected)
+    end
+
+    it "can find pets that have been adopted" do
+      shelter1 = create(:shelter, name: "Max Fund", id: 1)
+      eros = create(:pet, shelter_id: 1, adoptable: true)
+      apollo = create(:pet, shelter_id: 1, adoptable: false)
+      doge = create(:pet, shelter_id: 1, adoptable: false, status: true)
+      expected = [doge]
+      expect(shelter1.adopted).to eq(expected)
+      expect(shelter1.adopted.count).to eq 1
     end
   end
 end
