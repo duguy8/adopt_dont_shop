@@ -15,4 +15,8 @@ class Shelter < ApplicationRecord
   def average_age
     pets.average(:approximate_age)
   end
+
+  def adoptable_pets
+    pets.where(adoptable: true)
+  end
 end
