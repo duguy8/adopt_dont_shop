@@ -1,5 +1,4 @@
 class ShelterPetsController < ApplicationController
-
   def index
     @shelter = Shelter.find(params[:shelter_id])
   end
@@ -18,5 +17,4 @@ class ShelterPetsController < ApplicationController
   def shelter_pets_params
     params.permit(:image, :name, :description, :approximate_age, :sex, :adoptable)
   end
-
 end

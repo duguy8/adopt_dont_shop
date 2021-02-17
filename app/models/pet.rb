@@ -18,10 +18,7 @@ class Pet < ApplicationRecord
     return true if applications.where(status: "Approved").count >= 1
   end
 
-  def self.pending?(shelter)
-    find_each do |pet|
-      pet.applications.where('status = "Pending"')
-      pet.shelter == shelter
-    end
+  def app_review
+    applications.where(status: "Pending").pluck(:id)
   end
 end

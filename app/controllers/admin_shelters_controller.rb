@@ -8,5 +8,8 @@ class AdminSheltersController < ApplicationController
 
   def show
     @shelter = Shelter.find(params[:id])
+    if !@shelter.pets.empty?
+      @pets = @shelter.pending_pets
+    end
   end
 end

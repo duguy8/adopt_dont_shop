@@ -8,10 +8,10 @@ RSpec.describe 'When I visit "/admin/shelters"' do
     @app1 = create(:application)
     @app2 = create(:application)
     @app3 = create(:application)
-    @eros = create(:pet, shelter_id: 1)
-    @apollo = create(:pet, shelter_id: 2)
-    @new_pup = create(:pet, shelter_id: 3)
-    @doge = create(:pet, shelter_id: 1)
+    @eros = create(:pet, shelter_id: 1, status: true)
+    @apollo = create(:pet, shelter_id: 2, status: true)
+    @new_pup = create(:pet, shelter_id: 3, status: true)
+    @doge = create(:pet, shelter_id: 1, status: true)
     @app1.pets << [@eros, @apollo]
     @app2.pets << [@eros, @doge,]
     @app3.pets << [@new_pup]
