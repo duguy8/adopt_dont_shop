@@ -64,5 +64,17 @@ describe Pet, type: :model do
       expect(pet2.approved_app).to be true
       expect(pet.approved_app).not_to be true
     end
+
+    it "can find application that is pending" do
+      app1 = create(:application, status: "Pending")
+      app2 = create(:application, status: "Approved")
+      shelter = create(:shelter)
+      pet = shelter.pets.create!(sex: :female, name: "Fluffy", approximate_age: 3, description: 'super cute')
+      app1.pets << [pet]
+      app2.pets << [pet]
+      expected = [app1.id]
+      expect(pet.app_review).to eq(expected)
+
+    end
   end
 end

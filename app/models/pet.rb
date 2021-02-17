@@ -17,4 +17,8 @@ class Pet < ApplicationRecord
   def approved_app
     return true if applications.where(status: "Approved").count >= 1
   end
+
+  def app_review
+    applications.where(status: "Pending").pluck(:id)
+  end
 end

@@ -19,6 +19,7 @@
     <% if @pets %>
       <% @pets.each do |pet| %>
         <%= pet.name %>
+        <%= link_to "Review Pet", "/admins/applications/#{pet.app_review[0]}" %>
       <% end %>
     <% end %>
     </section>
