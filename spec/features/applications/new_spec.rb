@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe 'As a vistor visiting the Pet index page' do
   before :each do
-    @app1 = create(:application)
+    @app1 = Application.create!(name: "Guy", street_address: "111", city: "Tampa", state: "FL", zipcode: "11111")
     @shelter = create(:shelter, id: 1)
     @apollo = create(:pet, shelter_id: 1)
     @eros = create(:pet, shelter_id: 1)

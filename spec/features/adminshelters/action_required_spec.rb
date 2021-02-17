@@ -2,9 +2,9 @@ require 'rails_helper'
 
 RSpec.describe 'When I visit an admin shelter show page' do
   before :each do
-    @app_a = create(:application, status: "Approved")
-    @app_b = create(:application, status: "Pending")
-    @app1 = create(:application, status: "In Progress")
+    @app_a = create(:application, status: 3 )
+    @app_b = create(:application, status: 1 )
+    @app1 = create(:application, status: 0 )
     @shelter1 = create(:shelter, name: "Tampa Shelter", id: 1)
     @eros = create(:pet, approximate_age: 1, name: "Cute Dog", adoptable: true, shelter_id: 1, status: true)
     @apollo = create(:pet, approximate_age: 3, adoptable: false, status: true, shelter_id: 1)
