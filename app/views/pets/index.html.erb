@@ -1,3 +1,4 @@
+
 <h1>All Pets</h1>
 
 <h3><%= link_to "Start an Application", "/applications/new" %></h3>
@@ -15,3 +16,5 @@
     </section>
   <% end %>
 <% end %>
+
+<%= render partial: '/shared/form', locals: { path: '/', method: :get, link_text: 'Home' } %>

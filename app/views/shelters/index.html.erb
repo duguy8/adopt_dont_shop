@@ -1,4 +1,5 @@
-<h1>Shelters</h1>
+
+<h1>All Shelters</h1>
 <%= link_to 'New Shelter', '/shelters/new' %>
 <% @shelters.each do |shelter| %>
   <section id="shelter-<%=shelter.id%>">
@@ -7,3 +8,5 @@
     <%= link_to "Delete Shelter", "/shelters/#{shelter.id}", method: :delete %>
   </section>
 <% end %>
+
+<%= render partial: '/shared/form', locals: { path: '/', method: :get, link_text: 'Home' } %>
