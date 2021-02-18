@@ -7,28 +7,34 @@ RSpec.describe 'When a pet has an approved and pending app' do
     @shelter = create(:shelter, id: 1)
     @eros = create(:pet, shelter_id: 1)
     @apollo = create(:pet, shelter_id: 1)
-    @doge = create(:pet, shelter_id: 1)
-    @app1.pets << [@eros, @apollo]
-    @app2.pets << [@eros, @doge]
+    @doge = create(:pet, shelter_id: 1, name: "Doge")
   end
 
   describe "When I visit the pending app show page" do
     describe "No button to approve them, is button to reject" do
       it "Shows they are ~approved for adoption~" do
+        visit "/applications/#{@app1.id}"
+        fill_in "search", :with => "doge"
+        click_button("Search Pets")
+        click_button("Adopt this Pet")
+
+        fill_in "description", :with => "I love doggos"
+        click_button("Submit Application")
+
+        visit "/applications/#{@app2.id}"
+        fill_in "search", :with => "doge"
+        click_button("Search Pets")
+        click_button("Adopt this Pet")
+
+        fill_in "description", :with => "I love pupz"
+        click_button("Submit Application")
+
         visit "/admins/applications/#{@app1.id}"
-        within("#approve-#{@apollo.id}") do
-          click_button("Approve Application")
-        end
-        within("#approve-#{@eros.id}") do
+        within("#approve-#{@doge.id}") do
           click_button("Approve Application")
         end
         within(".stats") do
           expect(page).to have_content("Approved")
-        end
-        visit "/admins/applications/#{@app2.id}"
-        within("#approve-#{@eros.id}") do
-          expect(page).not_to have_button("Approve Application")
-          expect(page).to have_button("Reject Application")
         end
       end
     end

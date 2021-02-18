@@ -15,14 +15,16 @@ describe 'validations' do
   end
 
   describe 'instance methods' do
-    it "can be approved" do
-      @app1 = create(:application)
-      @app2 = create(:application)
-      @shelter = create(:shelter, id: 1)
-      @eros = create(:pet, shelter_id: 1, adoptable: false, status: true)
-      @app1.pets << [@eros]
-      expected = "Approved"
-      expect(@app1.approved?.status).to eq(expected)
+    it "can find a pet application" do
+      app1 = create(:application, id: 1)
+      shelter = create(:shelter, id: 1)
+      eros = create(:pet, shelter_id: 1, adoptable: false, status: true)
+      pet_app = PetApplication.create!(
+        pet_id: eros.id,
+        application_id: app1.id
+      )
+      expected = [app1.find_petapp(eros.id)]
+      expect(app1.find_petapp(eros.id)).to eq([pet_app])
     end
   end
 end
