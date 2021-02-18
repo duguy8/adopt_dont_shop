@@ -5,13 +5,20 @@ RSpec.describe 'When I visit an admin application show page' do
     @app1 = create(:application)
     @shelter = create(:shelter, id: 1)
     @apollo = create(:pet, shelter_id: 1)
-    @eros = create(:pet, shelter_id: 1)
+    @eros = create(:pet, shelter_id: 1, name: "Cute Dog")
     @doge = create(:pet, shelter_id: 1)
-    @app1.pets << [@eros]
+    # @app1.pets << [@eros]
   end
 
   describe "Next to every pet the application is for" do
     it "Has a button to reject for specific pet" do
+      visit "/applications/#{@app1.id}"
+      fill_in "search", :with => "Cute Dog"
+      click_button("Search Pets")
+      click_button("Adopt this Pet")
+      fill_in "description", :with => "I love doggos"
+      click_button("Submit Application")
+
       visit "/admins/applications/#{@app1.id}"
       within("#admin-pet-#{@eros.id}") do
         expect(page).to have_button("Reject Application")

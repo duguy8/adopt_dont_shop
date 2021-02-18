@@ -14,17 +14,62 @@ describe 'validations' do
   it {should validate_presence_of :zipcode}
   end
 
-  describe 'instance methods' do
-    it "can find a pet application" do
-      app1 = create(:application, id: 1)
-      shelter = create(:shelter, id: 1)
-      eros = create(:pet, shelter_id: 1, adoptable: false, status: true)
-      pet_app = PetApplication.create!(
-        pet_id: eros.id,
-        application_id: app1.id
+  describe "instance methods" do
+    it "can show rejected status" do
+      app1 = create(:application)
+      app2 = create(:application)
+      shelter = Shelter.create!(name: 'Pet Rescue', address: '123 Adoption Ln.', city: 'Denver', state: 'CO', zip: '80222')
+      pet = shelter.pets.create!(sex: :female, name: "Fluffy", approximate_age: 3, description: 'super cute')
+      pet2 = shelter.pets.create!(sex: :female, name: "Doge", approximate_age: 3, description: 'super cute')
+      PetApplication.create(
+        application_id: app1.id,
+        pet_id: pet.id,
+        approved: 1
       )
-      expected = [app1.find_petapp(eros.id)]
-      expect(app1.find_petapp(eros.id)).to eq([pet_app])
+      PetApplication.create(
+        application_id: app1.id,
+        pet_id: pet2.id,
+        approved: 1
+      )
+      expect(app1.status_check).to eq("Rejected")
+    end
+
+    it "can show approved status" do
+      app1 = create(:application)
+      app2 = create(:application)
+      shelter = Shelter.create!(name: 'Pet Rescue', address: '123 Adoption Ln.', city: 'Denver', state: 'CO', zip: '80222')
+      pet = shelter.pets.create!(sex: :female, name: "Fluffy", approximate_age: 3, description: 'super cute')
+      pet2 = shelter.pets.create!(sex: :female, name: "Doge", approximate_age: 3, description: 'super cute')
+      PetApplication.create(
+        application_id: app1.id,
+        pet_id: pet.id,
+        approved: 2
+      )
+      PetApplication.create(
+        application_id: app1.id,
+        pet_id: pet2.id,
+        approved: 2
+      )
+      expect(app1.status_check).to eq("Approved")
+    end
+
+    it "can show pending status" do
+      app1 = create(:application)
+      app2 = create(:application)
+      shelter = Shelter.create!(name: 'Pet Rescue', address: '123 Adoption Ln.', city: 'Denver', state: 'CO', zip: '80222')
+      pet = shelter.pets.create!(sex: :female, name: "Fluffy", approximate_age: 3, description: 'super cute')
+      pet2 = shelter.pets.create!(sex: :female, name: "Doge", approximate_age: 3, description: 'super cute')
+      PetApplication.create(
+        application_id: app1.id,
+        pet_id: pet.id,
+        approved: 0
+      )
+      PetApplication.create(
+        application_id: app1.id,
+        pet_id: pet2.id,
+        approved: 0
+      )
+      expect(app1.status_check).to eq("Pending")
     end
   end
 end

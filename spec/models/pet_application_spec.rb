@@ -7,37 +7,44 @@ describe PetApplication, type: :model do
   end
 
   describe "class methods" do
-    it "can be approved" do
+    it "can find specific applications and approve" do
       app1 = create(:application, id: 1)
       shelter = create(:shelter, id: 1)
-      eros = create(:pet, shelter_id: 1, adoptable: false, status: true)
+      eros = create(:pet, shelter_id: 1)
       pet_app = PetApplication.create!(
         pet_id: eros.id,
         application_id: app1.id,
         approved: 0
       )
-      expected = eros.pet_applications.approve
-      expect(pet_app.approved).to eq("pending")
-      expect(expected.first.approved).to eq("approved")
+      expected = "approved"
+      pass = {approve: eros.id, id: app1.id}
+      expect(PetApplication.find_specific_and_approve(pass).first.approved).to eq(expected)
     end
 
-    it "can see if all pet apps are approved" do
+    it "can find specific applications and reject" do
       app1 = create(:application, id: 1)
-      app2 = create(:application, id: 2)
       shelter = create(:shelter, id: 1)
-      eros = create(:pet, shelter_id: 1, adoptable: false, status: true)
+      eros = create(:pet, shelter_id: 1)
       pet_app = PetApplication.create!(
         pet_id: eros.id,
         application_id: app1.id,
-        approved: 2
+        approved: 1
       )
-      pet_app2 = PetApplication.create!(
+      expected = "rejected"
+      pass = {reject: eros.id, id: app1.id}
+      expect(PetApplication.find_specific_and_reject(pass).first.approved).to eq(expected)
+    end
+
+    it "can find if there are apps that need reviewed" do
+      app1 = create(:application, id: 1)
+      shelter = create(:shelter, id: 1)
+      eros = create(:pet, shelter_id: 1)
+      pet_app = PetApplication.create!(
         pet_id: eros.id,
-        application_id: app2.id,
-        approved: 2
+        application_id: app1.id,
+        approved: 0
       )
-      expected = eros.pet_applications.all_approved?
-      expect(expected.length).to eq(0)
+      expect(PetApplication.need_reviewed?(eros.id)).to eq 1
     end
   end
 end

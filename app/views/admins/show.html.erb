@@ -1,28 +1,24 @@
 <h1>Admin Application Approval Page</h1>
 <section class="stats">
 <h4>Applicant Name: <%= @application.name %></h4>
-<h4>Application Status: <%= @application.status %></h4>
+<h4>Application Status: <%= @application.status_check %></h4>
 </section>
 
 <h3>Pets on Application</h3>
-<% @application.pets.each do |pet| %>
-  <div id="admin-pet-<%= pet.id %>">
-  <% if params[:approve] == "no" %>
-    <p><%= pet.name %></p>
-    <p>Application Rejected</p>
-  <% elsif params[:approve] == "yes" && pet.status %>
-    <p><%= pet.name %></p>
-    <p>Application Approved</p>
-  <% else %>
-      <% if pet.approved_app %>
-        <section id="approve-<%= pet.id %>">
-        <p><%= button_to "Reject Application", "/admins/applications/#{@application.id}?reject=#{pet.id}", method: :patch %></p>
-      <% else %>
-        <p><%= pet.name %></p>
-        <section id="approve-<%= pet.id %>">
-          <p> <%= button_to "Approve Application", "/admins/applications/#{@application.id}?approve=#{pet.id}", method: :patch %></p>
+
+<% @pet_apps.each do |app| %>
+  <div id="admin-pet-<%= app.pet.id %>">
+    <% if app.approved == "rejected"  %>
+        <p><%= app.pet.name %></p>
+        <p>Application Rejected</p>
+    <% elsif app.approved == "approved"  %>
+        <p><%= app.pet.name %></p>
+        <p>Application Approved</p>
+      <% elsif app.approved == "pending"  %>
+        <p><%= app.pet.name %></p>
+        <section id="approve-<%= app.pet.id %>">
+          <p> <%= button_to "Approve Application", "/admins/applications/#{@application.id}?approve=#{app.pet.id}", method: :patch %></p>
         </section>
-        <p><%= button_to "Reject Application", "/admins/applications/#{@application.id}?reject=#{pet.id}", method: :patch %></p>
-    <% end %>
+        <p><%= button_to "Reject Application", "/admins/applications/#{@application.id}?reject=#{app.pet.id}", method: :patch %></p>
   <% end %>
 <% end %>

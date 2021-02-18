@@ -34,19 +34,6 @@ class ApplicationsController < ApplicationController
     redirect_to "/applications/#{@application.id}"
   end
 
-  def edit
-    PetApplication.create!(
-      application: Application.find(params[:id]),
-      pet: Pet.find(params[:pet_id]),
-      approved: 0
-    )
-    @application = Application.find(params[:id])
-    pet = Pet.find(params[:pet_id])
-    pet.update({status: true})
-    flash[:notice] = "#{pet.name} has been added to your application"
-    redirect_to "/applications/#{@application.id}"
-  end
-
   private
 
   def app_params

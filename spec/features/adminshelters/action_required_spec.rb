@@ -47,11 +47,10 @@ RSpec.describe 'When I visit an admin shelter show page' do
           expect(page).to have_button("Reject Application")
           click_button("Approve Application")
         end
-        # save_and_open_page
-        # within("#admin-pet-#{@pup.id}") do
-        #   expect(page).to have_button("Approve Application")
-        #   expect(page).to have_button("Reject Application")
-        # end
+        within("#admin-pet-#{@pup.id}") do
+          expect(page).to have_button("Approve Application")
+          expect(page).to have_button("Reject Application")
+        end
       end
     end
   end

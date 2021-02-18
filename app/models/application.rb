@@ -3,12 +3,13 @@ class Application < ApplicationRecord
   has_many :pet_applications
   has_many :pets, through: :pet_applications
 
-  def find_petapp(new_id)
-    pet_applications.where(application_id: self.id).where(pet_id: new_id)
-  end
-
-  def all_pets_approved?
-    pet_applications.where(approved: "pending")
-    # require "pry"; binding.pry
+  def status_check
+    if pet_applications.where(approved: 2).count == pet_applications.count
+      "Approved"
+    elsif pet_applications.where(approved: 1).count == pet_applications.count
+      "Rejected"
+    else
+      "Pending"
+    end
   end
 end

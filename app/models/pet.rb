@@ -14,11 +14,11 @@ class Pet < ApplicationRecord
     where("name ILIKE ?", "%#{input[:search]}%")
   end
 
-  def approved_app
-    return true if applications.where(status: "Approved").count >= 1
+  def approve
+    update(adoptable: false)
   end
 
-  def app_review
-    applications.where(status: "Pending").pluck(:id)
+  def reject
+    update(adoptable: false, status: false)
   end
 end

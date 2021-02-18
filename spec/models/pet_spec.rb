@@ -53,27 +53,19 @@ describe Pet, type: :model do
   end
 
   describe 'instance methods' do
-    it 'can find pets with approved apps' do
-      app1 = create(:application, status: "Pending" )
-      app2 = create(:application, status: "Approved" )
+    it "can be approved" do
       shelter = create(:shelter)
       pet = shelter.pets.create!(sex: :female, name: "Fluffy", approximate_age: 3, description: 'super cute')
-      pet2 = shelter.pets.create!(sex: :female, name: "Doge", approximate_age: 3, description: 'super cute')
-      app1.pets << [pet]
-      app2.pets << [pet2]
-      expect(pet2.approved_app).to be true
-      expect(pet.approved_app).not_to be true
+      pet.approve
+      expect(pet.adoptable).to be false
     end
 
-    it "can find application that is pending" do
-      app1 = create(:application, status: "Pending" )
-      app2 = create(:application, status: "Approved" )
+    it "can be rejected" do
       shelter = create(:shelter)
       pet = shelter.pets.create!(sex: :female, name: "Fluffy", approximate_age: 3, description: 'super cute')
-      app1.pets << [pet]
-      app2.pets << [pet]
-      expected = [app1.id]
-      expect(pet.app_review).to eq(expected)
+      pet.reject
+      expect(pet.adoptable).to be false
+      expect(pet.status).to be false
     end
   end
 end
