@@ -1,0 +1,8 @@
+<section id="pending">
+  <h2>Shelter's with Pending Applications: </h2>
+  <% if app %>
+    <% app.uniq.each do |shelter| %>
+      <p><%= shelter.name %></p>
+      <% end %>
+    <% end %>
+  </section>

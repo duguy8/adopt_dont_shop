@@ -1,0 +1,7 @@
+<section id="statistics">
+  <% if !app.pets.empty? %>
+    <h3>Average Pet Age: <%= app.average_age.round(2) %></h3><br>
+    <h3>Number of adoptable pets: <%= app.adoptable_pets.count %></h3><br>
+    <h3>Number of pets that have been adopted: <%= app.adopted.count %></h3>
+  <% end %>
+  </section>

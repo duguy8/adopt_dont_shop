@@ -1,0 +1,11 @@
+<section id="action-required">
+  <h2>Pets with applications that need reviewed: </h2><br>
+  <% if app %>
+    <% app.each do |pet| %>
+      <% if pet.pet_applications.need_reviewed?(pet.id) %>
+        <%= pet.name %>
+        <%= link_to "Review #{pet.name}", "/admins/applications/#{pet.pet_applications.need_reviewed?(pet.id)}" %>
+      <% end %>
+    <% end %>
+  <% end %>
+  </section>

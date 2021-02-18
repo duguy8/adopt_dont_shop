@@ -3,6 +3,7 @@
 <h4>Applicant Name: <%= @application.name %></h4>
 <h4>Application Status: <%= @application.status %></h4>
 </section>
+
 <h3>Pets on Application</h3>
 <% @application.pets.each do |pet| %>
   <div id="admin-pet-<%= pet.id %>">

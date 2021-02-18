@@ -35,11 +35,11 @@ class ApplicationsController < ApplicationController
   end
 
   def edit
-    pet_app = PetApplication.create(
+    PetApplication.create!(
       application: Application.find(params[:id]),
-      pet: Pet.find(params[:pet_id])
+      pet: Pet.find(params[:pet_id]),
+      approved: 0
     )
-    pet_app.update(approved: 0)
     @application = Application.find(params[:id])
     pet = Pet.find(params[:pet_id])
     pet.update({status: true})

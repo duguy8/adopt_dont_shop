@@ -6,22 +6,6 @@
 <h5>Shelter State: <%= @shelter.state %></h5>
 <h5>Shelter Zipcode: <%= @shelter.zip %></h5>
 
-<section id="statistics">
-  <% if !@shelter.pets.empty? %>
-    <h3>Average Pet Age: <%= @shelter.average_age.round(2) %></h3><br>
-    <h3>Number of adoptable pets: <%= @shelter.adoptable_pets.count %></h3><br>
-    <h3>Number of pets that have been adopted: <%= @shelter.adopted.count %></h3>
-  <% end %>
-  </section>
+<%= render partial: 'statistics', locals: {app: @shelter} %>
 
-  <section id="action-required">
-    <h2>Pets with applications that need reviewed: </h2><br>
-    <% if @pets %>
-      <% @pets.each do |pet| %>
-        <% if pet.pet_applications.need_reviewed?(pet.id) %>
-          <%= pet.name %>
-          <%= link_to "Review Pet", "/admins/applications/#{pet.pet_applications.need_reviewed?(pet.id)}" %>
-        <% end %>
-      <% end %>
-    <% end %>
-    </section>
+<%= render partial: 'action_required', locals: {app: @pets} %>

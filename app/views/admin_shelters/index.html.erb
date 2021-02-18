@@ -9,11 +9,4 @@
   <h5><%= shelter.zip %></h5>
 <% end %>
 
-<section id="pending">
-  <h2>Shelter's with Pending Applications: </h2>
-  <% if @pending %>
-    <% @pending.each do |shelter| %>
-      <p><%= shelter.name %></p>
-      <% end %>
-    <% end %>
-  </section>
+<%= render partial: 'shelters_pending', locals: {app: @pending} %>

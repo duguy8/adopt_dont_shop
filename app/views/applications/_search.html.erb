@@ -1,0 +1,18 @@
+<% if app.status == "In Progress" %>
+  <section id="search_pets">
+  <%= form_with(url: "/applications/#{path}", method: "get", local: true) do |f| %>
+    <h5><%= f.label "Add a Pet to this Application: " %></h5>
+    <p><%= f.text_field :search, placeholder: "Enter Pets Name" %></p><br>
+    <p><%= f.submit "Search Pets" %></p>
+    <% end %>
+  <% end %>
+
+  <% if pets %>
+    <%pets.each do |pet| %>
+      <div id="pet-<%= pet.id %>">
+      <h4><%= pet.name %></h4>
+      <%= button_to "Adopt this Pet", "/applications/#{path}/adopt?pet_id=#{pet.id}", method: :patch %>
+      <%end %>
+    <%else %>
+  <% end %>
+</section>

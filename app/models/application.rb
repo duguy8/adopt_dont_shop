@@ -6,4 +6,9 @@ class Application < ApplicationRecord
   def find_petapp(new_id)
     pet_applications.where(application_id: self.id).where(pet_id: new_id)
   end
+
+  def all_pets_approved?
+    pet_applications.where(approved: "pending")
+    # require "pry"; binding.pry
+  end
 end

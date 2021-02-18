@@ -5,6 +5,7 @@ RSpec.describe 'When I visit an admin shelter show page' do
     @app1 = create(:application)
     @shelter1 = create(:shelter, name: "Tampa Shelter", id: 1)
     @eros = create(:pet, approximate_age: 1, shelter_id: 1, name: "Cute Dog")
+    @pup = create(:pet, approximate_age: 2, shelter_id: 1, name: "Pup")
   end
 
   describe "I see a section titled ~Action Required~" do
@@ -26,6 +27,10 @@ RSpec.describe 'When I visit an admin shelter show page' do
     describe "Next to each pets name there is a link" do
       it "Takes you to admin app show page where you can accept or reject pet" do
         visit "/applications/#{@app1.id}"
+        fill_in "search", :with => "Pup"
+        click_button("Search Pets")
+        click_button("Adopt this Pet")
+        visit "/applications/#{@app1.id}"
         fill_in "search", :with => "Cute Dog"
         click_button("Search Pets")
         click_button("Adopt this Pet")
@@ -34,13 +39,19 @@ RSpec.describe 'When I visit an admin shelter show page' do
         visit "/admin/shelters/#{@shelter1.id}"
         within("#action-required") do
           expect(page).to have_content(@eros.name)
-          expect(page).to have_link("Review Pet")
-          click_link("Review Pet")
+          expect(page).to have_link("Review #{@eros.name}")
+          click_link("Review #{@eros.name}")
         end
         within("#admin-pet-#{@eros.id}") do
           expect(page).to have_button("Approve Application")
           expect(page).to have_button("Reject Application")
+          click_button("Approve Application")
         end
+        # save_and_open_page
+        # within("#admin-pet-#{@pup.id}") do
+        #   expect(page).to have_button("Approve Application")
+        #   expect(page).to have_button("Reject Application")
+        # end
       end
     end
   end
