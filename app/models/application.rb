@@ -3,11 +3,7 @@ class Application < ApplicationRecord
   has_many :pet_applications
   has_many :pets, through: :pet_applications
 
-  def approved?
-    approved = pets.where(adoptable: false, status: true)
-    if approved.length == pets.length
-      update(status: "Approved")
-      self
-    end
+  def find_petapp(new_id)
+    pet_applications.where(application_id: self.id).where(pet_id: new_id)
   end
 end

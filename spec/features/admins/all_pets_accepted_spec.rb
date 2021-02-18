@@ -16,7 +16,6 @@ RSpec.describe 'When I visit an admin app show page' do
         visit "/admins/applications/#{@app1.id}"
         click_button("Approve Application")
         expect(current_path).to eq("/admins/applications/#{@app1.id}")
-        expect(@app1.approved?.status).to eq(expected)
         within(".stats") do
           expect(page).to have_content("Approved")
         end

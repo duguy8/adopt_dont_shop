@@ -35,10 +35,14 @@ class ApplicationsController < ApplicationController
   end
 
   def edit
+    pet_app = PetApplication.create(
+      application: Application.find(params[:id]),
+      pet: Pet.find(params[:pet_id])
+    )
+    pet_app.update(approved: 0)
     @application = Application.find(params[:id])
     pet = Pet.find(params[:pet_id])
     pet.update({status: true})
-    @application.pets << pet
     flash[:notice] = "#{pet.name} has been added to your application"
     redirect_to "/applications/#{@application.id}"
   end

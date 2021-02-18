@@ -6,16 +6,20 @@ class AdminsController < ApplicationController
   def update
     if params[:approve]
       @application = Application.find(params[:id])
-      @pet = @application.pets.find(params[:approve])
-      @pet.update({status: true, adoptable: false})
-      @pet.save
-      @application.approved?
-      redirect_to "/admins/applications/#{@application.id}?approve=yes&pet_id=#{@pet.id}"
+      @pet_app = @application.find_petapp(params[:approve])
+      @pet_app.approve
+      if @application.pet_applications.all_approved?.empty?
+        @application.update(status: "Approved")
+      end
+      Pet.find(params[:approve]).update(adoptable: false)
+      redirect_to "/admins/applications/#{@application.id}?approve=yes&pet_id=#{params[:approve]}"
     elsif params[:reject]
       @application = Application.find(params[:id])
       @pet = @application.pets.find(params[:reject])
       @pet.update({adoptable: false})
       @pet.save
+      pet_app = @pet.pet_applications
+      pet_app.update(approved: 1)
       @application.update({status: "Rejected"})
       @application.save
       redirect_to "/admins/applications/#{@application.id}?approve=no&pet_id=#{@pet.id}"

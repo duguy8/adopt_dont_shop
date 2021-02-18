@@ -17,7 +17,7 @@ describe Shelter, type: :model do
     it 'can find shelters with pending apps' do
       shelter1 = create(:shelter, name: "Max Fund", id: 1)
       shelter2 = create(:shelter, name: "A Fund", id: 2)
-      app1 = create(:application, status: "Pending")
+      app1 = create(:application, status: "Pending" )
       eros = create(:pet, shelter_id: 1, status: false)
       apollo = create(:pet, shelter_id: 2, status: true)
       app1.pets << [apollo]
