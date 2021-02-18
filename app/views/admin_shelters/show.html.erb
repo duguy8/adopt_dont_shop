@@ -18,8 +18,10 @@
     <h2>Pets with applications that need reviewed: </h2><br>
     <% if @pets %>
       <% @pets.each do |pet| %>
-        <%= pet.name %>
-        <%= link_to "Review Pet", "/admins/applications/#{pet.app_review[0]}" %>
+        <% if pet.pet_applications.need_reviewed?(pet.id) %>
+          <%= pet.name %>
+          <%= link_to "Review Pet", "/admins/applications/#{pet.pet_applications.need_reviewed?(pet.id)}" %>
+        <% end %>
       <% end %>
     <% end %>
     </section>

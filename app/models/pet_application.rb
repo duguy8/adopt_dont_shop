@@ -11,4 +11,10 @@ class PetApplication < ApplicationRecord
   def self.all_approved?
     where(approved: 0)
   end
+
+  def self.need_reviewed?(pet_id)
+    pet = Pet.find(pet_id)
+    app = pet.pet_applications.where(approved: 0)
+    app.first.application_id
+  end
 end
