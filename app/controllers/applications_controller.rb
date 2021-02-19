@@ -26,12 +26,17 @@ class ApplicationsController < ApplicationController
 
   def update
     @application = Application.find(params[:id])
-    @application.update({
-      description: params[:description],
-      status: "Pending"
-      })
-    flash[:notice] = "Your application is pending"
-    redirect_to "/applications/#{@application.id}"
+    if params[:description].empty?
+      flash[:notice] = "Description required"
+      render :show
+    else
+      @application.update({
+        description: params[:description],
+        status: "Pending"
+        })
+      flash[:notice] = "Your application is pending"
+      redirect_to "/applications/#{@application.id}"
+    end
   end
 
   private

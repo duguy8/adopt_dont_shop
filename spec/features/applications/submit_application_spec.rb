@@ -26,6 +26,18 @@ RSpec.describe 'As a vistor' do
         expect(page).to have_content("Pending")
         expect(page).to have_content(@eros.name)
       end
+
+      it "Errors when no description is given" do
+        visit "/applications/#{@app1.id}"
+
+        expect(@app1.pets.count).to eq 1
+        within("#description_submit") do
+          expect(page).to have_button("Submit Application")
+        end
+        click_button("Submit Application")
+        expect(current_path).to eq("/applications/#{@app1.id}")
+        expect(page).to have_content("Description required")
+      end
     end
   end
 end
