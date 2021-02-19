@@ -24,6 +24,7 @@ RSpec.describe 'As a vistor' do
         end
         fill_in "search", :with => "Cute Dog"
         click_button("Search Pets")
+
         expect(current_path).to eq("/applications/#{@app1.id}")
         expect(page).to have_content(@doge.name)
       end
@@ -32,6 +33,7 @@ RSpec.describe 'As a vistor' do
         visit "/applications/#{@app1.id}"
         fill_in "search", :with => "fluff"
         click_button("Search Pets")
+
         expect(page).to have_content(@doge2.name)
         expect(page).to have_content(@doge3.name)
         expect(page).to have_content(@doge4.name)
@@ -41,6 +43,7 @@ RSpec.describe 'As a vistor' do
         visit "/applications/#{@app1.id}"
         fill_in "search", :with => "cute"
         click_button("Search Pets")
+        
         expect(page).to have_content(@doge.name)
         expect(page).to have_content(@doge5.name)
         expect(page).to have_content(@doge6.name)

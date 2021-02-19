@@ -39,6 +39,7 @@ RSpec.describe 'As a vistor visiting the Applications show page' do
         fill_in "street_address", :with => "111 Sweet St"
         fill_in "city", :with => "Tampa"
         click_button("Submit")
+
         expect(current_path).to eq("/applications")
         expect(page).to have_content("Required fields missing")
       end
@@ -51,6 +52,7 @@ RSpec.describe 'As a vistor visiting the Applications show page' do
         fill_in "state", :with => "FL"
         fill_in "zipcode", :with => "33331"
         click_button("Submit")
+
         expect(current_path).to eq("/applications")
         expect(page).to have_content("Required fields missing")
       end

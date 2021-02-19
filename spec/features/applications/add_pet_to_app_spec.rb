@@ -16,9 +16,11 @@ RSpec.describe 'As a vistor when I visit an app show page' do
         visit "/applications/#{@app1.id}"
         fill_in "search", :with => "Cute Dog"
         click_button("Search Pets")
+
         within("#pet-#{@doge.id}") do
           expect(page).to have_button("Adopt this Pet")
         end
+        
         click_button("Adopt this Pet")
         expect(current_path).to eq("/applications/#{@app1.id}")
         within("#pet_section") do

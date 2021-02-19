@@ -1,0 +1,11 @@
+<section id="description_submit">
+  <% if !app.pets.empty? && app.status == "In Progress" %>
+    <%= form_with(url: "/applications/#{app.id}", method: "patch", local: true) do |f| %>
+      <h3><%= f.label "Submit Your Application: " %></h3>
+      <p><%= f.label "Why You'd Make a Great Owner: " %></p>
+      <p><%= f.text_field :description, placeholder: "Type Here" %></p><br>
+      <p><%= f.submit "Submit Application" %></p>
+      <% end %>
+    <% else %>
+  <% end %>
+</section>

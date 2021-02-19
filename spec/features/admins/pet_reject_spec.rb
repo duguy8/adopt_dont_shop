@@ -7,7 +7,6 @@ RSpec.describe 'When I visit an admin application show page' do
     @apollo = create(:pet, shelter_id: 1)
     @eros = create(:pet, shelter_id: 1, name: "Cute Dog")
     @doge = create(:pet, shelter_id: 1)
-    # @app1.pets << [@eros]
   end
 
   describe "Next to every pet the application is for" do

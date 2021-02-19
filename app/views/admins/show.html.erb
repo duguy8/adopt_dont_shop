@@ -8,19 +8,4 @@
 
 <h3>Pets on Application</h3>
 
-<% @pet_apps.each do |app| %>
-  <div id="admin-pet-<%= app.pet.id %>">
-    <% if app.approved == "rejected"  && app.pet.status == false %>
-        <p><%= app.pet.name %></p>
-        <p>Application Rejected</p>
-    <% elsif app.approved == "approved" && app.pet.status == true %>
-        <p><%= app.pet.name %></p>
-        <p>Application Approved</p>
-      <% elsif app.approved == "pending"  %>
-        <p><%= app.pet.name %></p>
-        <section id="approve-<%= app.pet.id %>">
-          <p> <%= button_to "Approve Application", "/admins/applications/#{@application.id}?approve=#{app.pet.id}", method: :patch %></p>
-        </section>
-        <p><%= button_to "Reject Application", "/admins/applications/#{@application.id}?reject=#{app.pet.id}", method: :patch %></p>
-  <% end %>
-<% end %>
+<%= render partial: 'app_pets', locals: {pet_apps: @pet_apps, the_app: @application} %>

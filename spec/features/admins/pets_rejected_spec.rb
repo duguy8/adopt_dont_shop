@@ -6,7 +6,6 @@ RSpec.describe 'When I visit an admin app show page' do
     @shelter = create(:shelter, id: 1)
     @eros = create(:pet, shelter_id: 1)
     @apollo = create(:pet, shelter_id: 1, name: "Apollo")
-    # @app1.pets << [@eros]
   end
 
   describe "When some pets are approved but one rejected" do

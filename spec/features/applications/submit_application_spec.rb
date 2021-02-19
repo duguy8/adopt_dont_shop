@@ -21,6 +21,7 @@ RSpec.describe 'As a vistor' do
         end
         fill_in "description", :with => "I love doggos"
         click_button("Submit Application")
+        
         expect(current_path).to eq("/applications/#{@app1.id}")
         expect(page).to have_content("I love doggos")
         expect(page).to have_content("Pending")
@@ -35,6 +36,7 @@ RSpec.describe 'As a vistor' do
           expect(page).to have_button("Submit Application")
         end
         click_button("Submit Application")
+
         expect(current_path).to eq("/applications/#{@app1.id}")
         expect(page).to have_content("Description required")
       end

@@ -1,0 +1,16 @@
+<% pet_apps.each do |app| %>
+  <div id="admin-pet-<%= app.pet.id %>">
+    <% if app.approved == "rejected"  && app.pet.status == false %>
+        <p><%= app.pet.name %></p>
+        <p>Application Rejected</p>
+    <% elsif app.approved == "approved" && app.pet.status == true %>
+        <p><%= app.pet.name %></p>
+        <p>Application Approved</p>
+      <% elsif app.approved == "pending"  %>
+        <p><%= app.pet.name %></p>
+        <section id="approve-<%= app.pet.id %>">
+          <p> <%= button_to "Approve Application", "/admins/applications/#{the_app.id}?approve=#{app.pet.id}", method: :patch %></p>
+        </section>
+        <p><%= button_to "Reject Application", "/admins/applications/#{the_app.id}?reject=#{app.pet.id}", method: :patch %></p>
+  <% end %>
+<% end %>
