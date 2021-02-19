@@ -1,4 +1,4 @@
-<% if app.status != "Approved" || app.status != "Rejected" %>
+<% if app.status == "In Progress" %>
   <section id="search_pets">
   <%= form_with(url: "/applications/#{path}", method: "get", local: true) do |f| %>
     <h5><%= f.label "Add a Pet to this Application: " %></h5>
