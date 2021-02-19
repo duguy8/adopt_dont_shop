@@ -10,6 +10,8 @@ class Pet < ApplicationRecord
 
   enum sex: [:female, :male]
 
+  before_save :normalize_name
+
   def self.search(input)
     where("name ILIKE ?", "%#{input[:search]}%")
   end
@@ -20,5 +22,11 @@ class Pet < ApplicationRecord
 
   def reject
     update(adoptable: false, status: false)
+  end
+
+  private
+
+  def normalize_name
+    self.name = name.downcase.titleize
   end
 end

@@ -1,3 +1,5 @@
+<%= render partial: 'shared/admin_nav' %>
+
 <h1>Admin Application Approval Page</h1>
 <section class="stats">
 <h4>Applicant Name: <%= @application.name %></h4>
@@ -8,10 +10,10 @@
 
 <% @pet_apps.each do |app| %>
   <div id="admin-pet-<%= app.pet.id %>">
-    <% if app.approved == "rejected"  %>
+    <% if app.approved == "rejected"  && app.pet.status == false %>
         <p><%= app.pet.name %></p>
         <p>Application Rejected</p>
-    <% elsif app.approved == "approved"  %>
+    <% elsif app.approved == "approved" && app.pet.status == true %>
         <p><%= app.pet.name %></p>
         <p>Application Approved</p>
       <% elsif app.approved == "pending"  %>

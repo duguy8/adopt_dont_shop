@@ -43,5 +43,24 @@ RSpec.describe 'As a vistor visiting the Pet index page' do
       click_button("Submit")
       expect(page).to have_content("Required fields missing")
     end
+
+    it 'Works with callbacks' do
+      visit "/pets"
+      expect(page).to have_link("Start an Application")
+      click_link("Start an Application")
+      expect(page).to have_button("Submit")
+      fill_in "name", :with => "cait"
+      fill_in "street_address", :with => "111 Sweet St"
+      fill_in "city", :with => "tampa"
+      fill_in "state", :with => "fl"
+      fill_in "zipcode", :with => "32123"
+      click_button("Submit")
+      expect(page).to have_content("Cait")
+      expect(page).to have_content("111 Sweet St")
+      expect(page).to have_content("Tampa")
+      expect(page).to have_content("FL")
+      expect(page).to have_content("32123")
+      expect(page).to have_content("In Progress")
+    end
   end
 end

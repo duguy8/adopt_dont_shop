@@ -1,0 +1,7 @@
+<% list.each do |shelter| %>
+  <h5><%= link_to "#{shelter.name}", "/admin/shelters/#{shelter.id}" %>
+  <h5><%= shelter.address %></h5>
+  <h5><%= shelter.city %></h5>
+  <h5><%= shelter.state %></h5>
+  <h5><%= shelter.zip %></h5>
+<% end %>
